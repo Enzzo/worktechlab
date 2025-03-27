@@ -1,10 +1,10 @@
-package com.worktechlab.hellospringdata;
+package ru.vasilev.librarysystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LibraryApplicationTests {
+class LibrarysystemApplicationTests {
 
 	@Test
 	void contextLoads() {
