@@ -1,4 +1,13 @@
-databaseChangelog:
+databaseChangeLog:
   - include:
-    file: changes/001-initial-authors.yaml
-    relativeToChangeLogFile: true
+      file: changes/001-initial-authors.yaml
+      relativeToChangeLogFile: true
+  - include:
+      file: changes/002-initial-books.yaml
+      relativeToChangeLogFile: true
+  - include:
+      file: changes/003-initial-users.yaml
+      relativeToChangeLogFile: true
+  - include:
+      file: changes/004-borrow-records.yaml
+      relativeToChangeLogFile: true
