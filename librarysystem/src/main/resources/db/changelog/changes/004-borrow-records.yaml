@@ -29,3 +29,15 @@ databaseChangeLog:
               - column:
                   name: return_date
                   type: TIMESTAMP
+        - addForeignKeyConstraint:
+            constraintName: fk_borrowrecords_users
+            baseTableName: borrow_records
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_borrowrecords_books
+            baseTableName: borrow_records
+            baseColumnNames: book_id
+            referencedTableName: books
+            referencedColumnNames: id  

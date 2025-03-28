@@ -21,3 +21,9 @@ databaseChangeLog:
               - column:
                   name: author_id
                   type: BIGINT
+        - addForeignKeyConstraint:
+            constraintName: fk_books_author
+            baseTableName: books
+            baseColumnNames: author_id
+            referencedTableName: authors
+            referencedColumnNames: id          
