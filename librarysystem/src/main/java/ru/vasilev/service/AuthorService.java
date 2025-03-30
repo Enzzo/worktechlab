@@ -20,8 +20,7 @@ public class AuthorService {
 		this.authorRepo = authorRepo;
 	}
 
-	public Author save(String name) {
-		Author author = new Author(name, null);
+	public Author save(Author author) {
 		return authorRepo.save(author);
 	}
 

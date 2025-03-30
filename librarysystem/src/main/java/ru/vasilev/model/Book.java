@@ -22,8 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @Entity
 @Table(name = "books")
-public class Book {
-	
+public class Book {	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
