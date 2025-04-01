@@ -5,15 +5,20 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import ru.vasilev.model.Author;
 import ru.vasilev.service.AuthorService;
 
 @RestController
-@RequestMapping("/api/authors")
+@RequestMapping("/api/v1/authors")
+@Tag(name = "Authors", description = "Операции для работы с авторами")
 public class AuthorController {
 	private final AuthorService authorService;
 
@@ -22,17 +27,32 @@ public class AuthorController {
 	}
 	
 	@PostMapping
-	public Author createAuthor(@RequestBody Author author) {
+	@Operation(summary = "Создать нового автора", description = "Создаёт нового автора с переданными данными")
+	public Author createAuthor(
+			@Parameter(description = "Объект автора", required = true)
+			@RequestBody Author author) {
 		return authorService.save(author);
 	}
 	
 	@GetMapping
+	@Operation(summary = "Получить всех авторов", description = "Возвращает список всех авторов")
 	public List<Author> getAll(){
 		return authorService.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Author getById(@PathVariable Long id) {
+	@Operation(summary = "Получить автора по ID", description = "Возвращает данные автора по заданному идентификатору")
+	public Author getById(
+			@Parameter(description = "Идентификатор автора", required = true)
+			@PathVariable Long id) {
 		return authorService.findById(id);
+	}
+	
+	@GetMapping("/author")
+	@Operation(summary = "Получить автора по имени", description = "Возвращает данные автора по заданному имени")
+	public Author getByName(
+			@Parameter(description = "Параметр name - имя автора", required = true)
+			@RequestParam String name) {
+		return authorService.findByName(name);
 	}
 }

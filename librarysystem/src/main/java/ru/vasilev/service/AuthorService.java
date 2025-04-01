@@ -28,6 +28,11 @@ public class AuthorService {
 		return authorRepo.findById(id)
 				.orElseThrow(() -> new NoSuchElementException("Author not found with id: " + id));
 	}
+	
+	public Author findByName(String name) {
+		return authorRepo.findByName(name)
+				.orElseThrow(() -> new NoSuchElementException("Author not found with name: " + name));
+	}
 
 	public List<Author> findAll(){
 		return authorRepo.findAll();

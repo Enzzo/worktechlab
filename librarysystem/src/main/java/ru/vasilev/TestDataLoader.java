@@ -32,7 +32,7 @@ public class TestDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Author author = authorService.save("Лев Толстой");
+        Author author = authorService.save(new Author("Лев Толстой", null));
         Book book = bookService.save("Война и мир", author.getId());
         User user = userService.save("ivanov");
         BorrowRecord record = borrowRecordService.borrowBook(user, book);
