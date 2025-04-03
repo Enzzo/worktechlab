@@ -21,8 +21,7 @@ public class UserService {
 		this.userRepo = userRepo;
 	}
 
-	public User save(String username) {
-		User user = new User(username, "");
+	public User save(User user) {
 		return userRepo.save(user);
 	}
 	
