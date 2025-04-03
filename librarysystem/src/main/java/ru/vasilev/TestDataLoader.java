@@ -34,13 +34,13 @@ public class TestDataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Author author = authorService.save(new Author("Лев Толстой", null));
         Book book = bookService.save("Война и мир", author.getId());
-        User user = new User("ivanov", "123");
-		userService.save(user);
-        BorrowRecord record = borrowRecordService.borrowBook(user, book);
-        System.out.println("Книга выдана, запись ID: " + record.getId());
+//        User user = new User("ivanov", "123");
+//		userService.save(user);
+//        BorrowRecord record = borrowRecordService.borrowBook(user, book);
+//        System.out.println("Книга выдана, запись ID: " + record.getId());
         
         // Пример возврата книги:
-        BorrowRecord updatedRecord = borrowRecordService.returnBook(record.getId());
-        System.out.println("Книга возвращена, время возврата: " + updatedRecord.getReturnDate());
+//        BorrowRecord updatedRecord = borrowRecordService.returnBook(record.getId());
+//        System.out.println("Книга возвращена, время возврата: " + updatedRecord.getReturnDate());
     }
 }

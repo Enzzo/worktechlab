@@ -30,7 +30,7 @@ public class SecurityConfig {
 			.csrf(csrf -> csrf
 					.disable())
 			.authorizeHttpRequests(request -> request
-					.requestMatchers("/h2-console/**").permitAll()
+					.requestMatchers("/swagger-ui/**", "/h2-console/**", "/api/v1/register", "/login").permitAll()
 					.anyRequest().authenticated())
 			.httpBasic(Customizer.withDefaults())
 			.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
