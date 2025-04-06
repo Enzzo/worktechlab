@@ -31,6 +31,7 @@ public class SecurityConfig {
 					.disable())
 			.authorizeHttpRequests(request -> request
 					.requestMatchers("/swagger-ui/**", "/h2-console/**", "/api/v1/register", "/login").permitAll()
+					.requestMatchers("/api/v1/users/**").hasRole("ADMIN")
 					.anyRequest().authenticated())
 			.httpBasic(Customizer.withDefaults())
 			.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));

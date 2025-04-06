@@ -1,0 +1,25 @@
+services:
+  app:
+    image: vasilev/librarysystem:0.0.1-SNAPSHOT
+    container_name: librarysystem
+    env_file:
+    - .env
+    environment:
+    - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+    ports:
+    - ${APP_PORT}:8080
+    depends_on:
+    - postgres
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${PG_DATABASE}
+      POSTGRES_USER: ${PG_USERNAME}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    ports:
+    - ${PG_PORT}:5432
+    volumes:
+    - lsv:/var/lib/postgresql/data
+volumes:
+  lsv:
+    name: lsv
