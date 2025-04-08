@@ -1,0 +1,12 @@
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\config\HibernateDevConfig.java
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\config\HibernateProdConfig.java
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\LibrarysystemApplication.java
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\model\Author.java
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\model\Book.java
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\model\BorrowRecord.java
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\model\User.java
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\service\AuthorService.java
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\service\BookService.java
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\service\BorrowRecordService.java
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\service\UserService.java
+D:\dev\java\work\worktechlab\librarysystem\src\main\java\ru\vasilev\TestDataLoader.java

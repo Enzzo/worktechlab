@@ -1,0 +1,12 @@
+ru\vasilev\model\BorrowRecord.class
+ru\vasilev\TestDataLoader.class
+ru\vasilev\service\BorrowRecordService.class
+ru\vasilev\config\HibernateDevConfig.class
+ru\vasilev\model\Book.class
+ru\vasilev\model\Author.class
+ru\vasilev\LibrarysystemApplication.class
+ru\vasilev\config\HibernateProdConfig.class
+ru\vasilev\model\User.class
+ru\vasilev\service\AuthorService.class
+ru\vasilev\service\BookService.class
+ru\vasilev\service\UserService.class
