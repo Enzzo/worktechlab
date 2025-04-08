@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.vasilev.model.User;
+import ru.vasilev.dto.UserDTO;
 import ru.vasilev.service.UserService;
 
 @RestController
@@ -23,7 +23,7 @@ public class RegistrationController {
 	}	
 	
 	@PostMapping
-	public User registerUser(@RequestBody User user) {
+	public UserDTO registerUser(@RequestBody UserDTO user) {
 		user.setPassword(encoder.encode(user.getPassword()));
 		return userService.save(user);
 	}

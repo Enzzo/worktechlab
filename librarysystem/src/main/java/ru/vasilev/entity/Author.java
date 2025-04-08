@@ -1,4 +1,4 @@
-package ru.vasilev.model;
+package ru.vasilev.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.vasilev.dto.AuthorDTO;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "authors")
 public class Author {
@@ -39,5 +42,9 @@ public class Author {
 	public void addBook(Book book) {
 		bookList.add(book);
 		book.setAuthor(this);
+	}
+	
+	public static Author fromAuthorDTO(AuthorDTO author) {
+		return new Author(author.getId(), author.getName(), author.getBookList());
 	}
 }

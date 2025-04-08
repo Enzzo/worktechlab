@@ -12,35 +12,35 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import ru.vasilev.model.User;
-import ru.vasilev.repository.UserRepository;
+import ru.vasilev.dao.UserDAO;
+import ru.vasilev.entity.User;
 
 @RestController
 @RequestMapping("/api/v1/users")
 @Tag(name = "Users", description = "Операции с пользователями")
 public class UserController {
 
-	private final UserRepository userRepository;
+	private final UserDAO userDAO;
 
-	public UserController(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	public UserController(UserDAO userDAO) {
+		this.userDAO = userDAO;
 	}
 
 	@GetMapping
 	@Operation(summary = "Получить всех пользователей", description = "Возвращает список всех пользователей")
 	public List<User> getAllUsers() {
-		return userRepository.findAll();
+		return userDAO.findAll();
 	}
 
 	@PostMapping
 	@Operation(summary = "Создать пользователя", description = "Создаёт нового пользователя")
 	public User createUser(@Parameter(description = "Объект пользователя", required = true) @RequestBody User user) {
-		return userRepository.save(user);
+		return userDAO.save(user);
 	}
 
 	@GetMapping("/{id}")
 	@Operation(summary = "Получить пользователя по ID", description = "Возвращает данные пользователя по идентификатору")
     public User getUser(@Parameter(description = "Идентификатор пользователя", required = true) @PathVariable Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return userDAO.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

@@ -21,21 +21,6 @@
 				},
 				"auth-model": "native"
 			}
-		},
-		"h2_server-196136d459c-7bd35c8ee7821aeb": {
-			"provider": "h2",
-			"driver": "h2_server",
-			"name": "localhost",
-			"save-password": true,
-			"configuration": {
-				"host": "localhost",
-				"port": "9092",
-				"url": "jdbc:h2:mem:libdb",
-				"configurationType": "URL",
-				"type": "dev",
-				"closeIdleConnection": true,
-				"auth-model": "native"
-			}
 		}
 	},
 	"connection-types": {

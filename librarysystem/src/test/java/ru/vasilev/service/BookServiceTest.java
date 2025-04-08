@@ -1,29 +1,19 @@
 package ru.vasilev.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
-
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import ru.vasilev.model.Author;
-import ru.vasilev.model.Book;
-import ru.vasilev.repository.AuthorRepository;
-import ru.vasilev.repository.BookRepository;
+import ru.vasilev.dao.AuthorDAO;
+import ru.vasilev.dao.BookDAO;
 
 class BookServiceTest {
 
     @Mock
-    private BookRepository bookRepo;
+    private BookDAO bookDAO;
 
     @Mock
-    private AuthorRepository authorRepo;
+    private AuthorDAO authorDAO;
 
     @InjectMocks
     private BookService bookService;
@@ -36,8 +26,8 @@ class BookServiceTest {
 //    void save_ShouldReturnSavedBook() {
 //        Author author = new Author("Test Author", null);
 //        Book book = new Book("Test Book", author);
-//        when(authorRepo.findById(1L)).thenReturn(Optional.of(author));
-//        when(bookRepo.save(book)).thenReturn(book);
+//        when(authorDAO.findById(1L)).thenReturn(Optional.of(author));
+//        when(bookDAO.save(book)).thenReturn(book);
 //
 //        Book savedBook = bookService.save("Test Book", 1L);
 //        assertEquals("Test Book", savedBook.getTitle());
@@ -46,7 +36,7 @@ class BookServiceTest {
 //    @Test
 //    void findById_ShouldReturnBook() {
 //        Book book = new Book("Test Book", null);
-//        when(bookRepo.findById(1L)).thenReturn(Optional.of(book));
+//        when(bookDAO.findById(1L)).thenReturn(Optional.of(book));
 //
 //        Book foundBook = bookService.findById(1L);
 //        assertEquals("Test Book", foundBook.getTitle());
@@ -54,7 +44,7 @@ class BookServiceTest {
 
 //    @Test
 //    void findById_ShouldThrowException_WhenBookNotFound() {
-//        when(bookRepo.findById(1L)).thenReturn(Optional.empty());
+//        when(bookDAO.findById(1L)).thenReturn(Optional.empty());
 //
 //        assertThrows(NoSuchElementException.class, () -> bookService.findById(1L));
 //    }

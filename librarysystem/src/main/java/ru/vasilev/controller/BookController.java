@@ -13,28 +13,28 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import ru.vasilev.model.Author;
-import ru.vasilev.model.Book;
-import ru.vasilev.repository.AuthorRepository;
-import ru.vasilev.repository.BookRepository;
+import ru.vasilev.dao.AuthorDAO;
+import ru.vasilev.dao.BookDAO;
+import ru.vasilev.entity.Author;
+import ru.vasilev.entity.Book;
 
 @RestController
 @RequestMapping("/api/v1/books")
 @Tag(name = "Books", description = "Операции с книгами")
 public class BookController {
-	private final BookRepository bookRepo;
-	private final AuthorRepository authorRepo;
+	private final BookDAO bookDAO;
+	private final AuthorDAO authorDAO;
 
 	@Autowired
-	public BookController(BookRepository bookRepo, AuthorRepository authorRepo) {
-		this.bookRepo = bookRepo;
-		this.authorRepo = authorRepo;
+	public BookController(BookDAO bookDAO, AuthorDAO authorDAO) {
+		this.bookDAO = bookDAO;
+		this.authorDAO = authorDAO;
 	}
 	
 	@GetMapping
 	@Operation(summary = "Получить все книги", description = "Возвращает список всех книг")
     public List<Book> getAllBooks() {
-        return bookRepo.findAll();
+        return bookDAO.findAll();
 	}
 
 	@PostMapping
@@ -42,17 +42,17 @@ public class BookController {
     public Book createBook(
     		@Parameter(description = "Название книги", required = true) @RequestParam String title,
             @Parameter(description = "ID автора", required = true) @RequestParam Long authorId) {
-        Author author = authorRepo.findById(authorId)
+        Author author = authorDAO.findById(authorId)
             .orElseThrow(() -> new RuntimeException("Author not found"));
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
-        return bookRepo.save(book);
+        return bookDAO.save(book);
     }
     
     @GetMapping("/{id}")
     @Operation(summary = "Получить книгу по ID", description = "Возвращает данные книги по идентификатору")
     public Book getBook( @Parameter(description = "Идентификатор книги", required = true) @PathVariable Long id) {
-        return bookRepo.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
+        return bookDAO.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
     }
 }

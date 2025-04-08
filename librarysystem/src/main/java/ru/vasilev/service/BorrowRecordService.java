@@ -7,32 +7,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
-import ru.vasilev.model.Book;
-import ru.vasilev.model.BorrowRecord;
-import ru.vasilev.model.User;
-import ru.vasilev.repository.BorrowRecordRepository;
+import ru.vasilev.dao.BorrowRecordDAO;
+import ru.vasilev.dto.BookDTO;
+import ru.vasilev.dto.BorrowRecordDTO;
+import ru.vasilev.dto.UserDTO;
+import ru.vasilev.entity.Book;
+import ru.vasilev.entity.BorrowRecord;
+import ru.vasilev.entity.User;
 
 @Service
 @Transactional
 public class BorrowRecordService {
-	BorrowRecordRepository brRepo;
+	BorrowRecordDAO brDAO;
 	
 	@Autowired
-	public BorrowRecordService(BorrowRecordRepository brRepo) {
-		this.brRepo = brRepo;
+	public BorrowRecordService(BorrowRecordDAO brDAO) {
+		this.brDAO = brDAO;
 	}
 
-	public BorrowRecord borrowBook(User user, Book book) {
-		BorrowRecord br = new BorrowRecord(user, book);
-		return brRepo.save(br);
+	public BorrowRecordDTO borrowBook(UserDTO user, BookDTO book) {
+		BorrowRecord br = new BorrowRecord(User.fromUserDTO(user), Book.fromBookDTO(book));
+		return BorrowRecordDTO.fromBorrowRecord(brDAO.save(br));
 	}
 	
-	public BorrowRecord returnBook(Long id) {
-		BorrowRecord br = brRepo.findById(id).orElseThrow(() -> new NoSuchElementException("No record found with id: " + id));
+	public BorrowRecordDTO returnBook(Long borrowId) {
+		BorrowRecord br = brDAO.findById(borrowId).orElseThrow(() -> new NoSuchElementException("No record found with id: " + borrowId));
 		if(br.getReturnDate() == null) {
 			br.setReturnDate(LocalDateTime.now());
 		}
 		
-		return brRepo.save(br);
+		return BorrowRecordDTO.fromBorrowRecord(brDAO.save(br));
 	}
 }

@@ -12,41 +12,42 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import ru.vasilev.model.Book;
-import ru.vasilev.model.BorrowRecord;
-import ru.vasilev.model.User;
-import ru.vasilev.repository.BookRepository;
-import ru.vasilev.repository.BorrowRecordRepository;
-import ru.vasilev.repository.UserRepository;
+import ru.vasilev.dao.BookDAO;
+import ru.vasilev.dao.BorrowRecordDAO;
+import ru.vasilev.dao.UserDAO;
+import ru.vasilev.entity.Book;
+import ru.vasilev.entity.BorrowRecord;
+import ru.vasilev.entity.User;
 
 @RestController
 @RequestMapping("/api/borrow")
 @Tag(name = "BorrowRecords", description = "Операции по выдаче и возврату книг")
 public class BorrowRecordController {
 
-	private final BorrowRecordRepository borrowRecordRepository;
-	private final UserRepository userRepository;
-	private final BookRepository bookRepository;
+	private final BorrowRecordDAO borrowRecordDAO;
+	private final UserDAO userDAO;
+	private final BookDAO bookDAO;
 
-	public BorrowRecordController(BorrowRecordRepository borrowRecordRepository, UserRepository userRepository,
-			BookRepository bookRepository) {
-		this.borrowRecordRepository = borrowRecordRepository;
-		this.userRepository = userRepository;
-		this.bookRepository = bookRepository;
+	public BorrowRecordController(BorrowRecordDAO borrowRecordDAO, UserDAO userDAO,
+			BookDAO bookDAO) {
+		this.borrowRecordDAO = borrowRecordDAO;
+		this.userDAO = userDAO;
+		this.bookDAO = bookDAO;
 	}
 
 	@GetMapping
 	@Operation(summary = "Получить все записи выдачи книг", description = "Возвращает список всех записей выдачи")
 	public List<BorrowRecord> getAllBorrowRecords() {
-		return borrowRecordRepository.findAll();
+		return borrowRecordDAO.findAll();
 	}
 
 	@PostMapping("/borrow")
 	@Operation(summary = "Выдать книгу", description = "Создаёт запись выдачи книги пользователю")
-	public BorrowRecord borrowBook(@Parameter(description = "ID пользователя", required = true) @RequestParam Long userId,
-            @Parameter(description = "ID книги", required = true) @RequestParam Long bookId) {
-		User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-		Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
+	public BorrowRecord borrowBook(
+			@Parameter(description = "ID пользователя", required = true) @RequestParam Long userId,
+			@Parameter(description = "ID книги", required = true) @RequestParam Long bookId) {
+		User user = userDAO.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+		Book book = bookDAO.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
 
 		BorrowRecord record = new BorrowRecord();
 		record.setUser(user);
@@ -54,15 +55,16 @@ public class BorrowRecordController {
 		record.setBorrowDate(LocalDateTime.now());
 		// returnDate остаётся null до возврата
 
-		return borrowRecordRepository.save(record);
+		return borrowRecordDAO.save(record);
 	}
 
 	@PostMapping("/return")
 	@Operation(summary = "Вернуть книгу", description = "Обновляет запись выдачи, устанавливая дату возврата")
-	public BorrowRecord returnBook(@Parameter(description = "ID записи выдачи", required = true) @RequestParam Long recordId) {
-		BorrowRecord record = borrowRecordRepository.findById(recordId)
+	public BorrowRecord returnBook(
+			@Parameter(description = "ID записи выдачи", required = true) @RequestParam Long recordId) {
+		BorrowRecord record = borrowRecordDAO.findById(recordId)
 				.orElseThrow(() -> new RuntimeException("Record not found"));
 		record.setReturnDate(LocalDateTime.now());
-		return borrowRecordRepository.save(record);
+		return borrowRecordDAO.save(record);
 	}
 }

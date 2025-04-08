@@ -1,4 +1,4 @@
-package ru.vasilev.model;
+package ru.vasilev.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +16,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.vasilev.dto.BookDTO;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "books")
 public class Book {	
@@ -43,5 +46,9 @@ public class Book {
 		this.title = title;
 		this.author = (author != null)?author:new Author("UNKNOWN AUTHOR", null);
 		this.author.addBook(this);
+	}
+	
+	public static Book fromBookDTO(BookDTO bookDTO) {
+		return new Book(bookDTO.getId(), bookDTO.getTitle(), bookDTO.getAuthor(), bookDTO.getUserList());
 	}
 }

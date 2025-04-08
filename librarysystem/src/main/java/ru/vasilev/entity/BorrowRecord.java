@@ -1,7 +1,6 @@
-package ru.vasilev.model;
+package ru.vasilev.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,12 +9,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.vasilev.dto.BorrowRecordDTO;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "borrow_records")
 public class BorrowRecord {
@@ -38,5 +39,13 @@ public class BorrowRecord {
 		this.user = user;
 		this.book = book;
 		borrowDate = LocalDateTime.now();
+	}
+	public static BorrowRecord fromBorrowRecordDTO(BorrowRecordDTO brDTO) {
+		return new BorrowRecord(brDTO.getId(), 
+				brDTO.getUser(), 
+				brDTO.getBook(),
+				brDTO.getBorrowDate(),
+				brDTO.getReturnDate()
+				);
 	}
 }

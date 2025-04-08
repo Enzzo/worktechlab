@@ -4,10 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import ru.vasilev.model.Author;
-import ru.vasilev.model.Book;
-import ru.vasilev.model.BorrowRecord;
-import ru.vasilev.model.User;
+import ru.vasilev.dto.AuthorDTO;
+import ru.vasilev.dto.BookDTO;
+import ru.vasilev.entity.Author;
 import ru.vasilev.service.AuthorService;
 import ru.vasilev.service.BookService;
 import ru.vasilev.service.BorrowRecordService;
@@ -32,15 +31,7 @@ public class TestDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Author author = authorService.save(new Author("Лев Толстой", null));
-        Book book = bookService.save("Война и мир", author.getId());
-//        User user = new User("ivanov", "123");
-//		userService.save(user);
-//        BorrowRecord record = borrowRecordService.borrowBook(user, book);
-//        System.out.println("Книга выдана, запись ID: " + record.getId());
-        
-        // Пример возврата книги:
-//        BorrowRecord updatedRecord = borrowRecordService.returnBook(record.getId());
-//        System.out.println("Книга возвращена, время возврата: " + updatedRecord.getReturnDate());
+        AuthorDTO author = authorService.save(AuthorDTO.fromAuthor(new Author("Лев Толстой", null)));
+        BookDTO book = bookService.save("Война и мир", author.getId());
     }
 }
