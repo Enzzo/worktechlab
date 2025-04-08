@@ -1,45 +1,57 @@
 package ru.vasilev.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
-import ru.vasilev.model.User;
-import ru.vasilev.repository.UserRepository;
+import ru.vasilev.dao.UserDAO;
+import ru.vasilev.dto.UserDTO;
+import ru.vasilev.entity.User;
 
 @Service
 @Transactional
 public class UserService {
-	private final UserRepository userRepo;
+	private final UserDAO userDAO;
 	
 	@Autowired	
-	public UserService(UserRepository userRepo) {
-		this.userRepo = userRepo;
+	public UserService(UserDAO userDAO) {
+		this.userDAO = userDAO;
 	}
 
-	public User save(User user) {
-		return userRepo.save(user);
+	public UserDTO save(UserDTO user) {
+		userDAO.save(User.fromUserDTO(user));
+		return user;
 	}
 	
-	public User findById(Long id) {
-		return userRepo.findById(id)
+	public UserDTO findById(Long id) {
+		return userDAO.findById(id)
+				.map(user -> {
+					return UserDTO.fromUser(user);
+				})
 				.orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
 	}
 	
-	public User findByUsername(String username) {
-		return userRepo.findByUsername(username)
+	public UserDTO findByUsername(String username) {
+		return userDAO.findByUsername(username)
+				.map(user -> {
+					return UserDTO.fromUser(user);
+				})
 				.orElseThrow(() -> new NoSuchElementException("User not found with name: " + username));
 	}
 	
-	public List<User> findAll(){
-		return userRepo.findAll();
+	public List<UserDTO> findAll(){
+		List<UserDTO> usersList = new ArrayList<>();
+		for(User user : userDAO.findAll()) {
+			usersList.add(UserDTO.fromUser(user));
+		}
+		return usersList;
 	}
 	
 	public void delete(Long id) {
-		userRepo.deleteById(id);
+		userDAO.deleteById(id);
 	}
 }

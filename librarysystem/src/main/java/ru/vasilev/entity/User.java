@@ -1,4 +1,4 @@
-package ru.vasilev.model;
+package ru.vasilev.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,14 +19,18 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.vasilev.dto.UserDTO;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements UserDetails{
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -48,6 +52,10 @@ public class User implements UserDetails{
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
+	}
+	
+	public static User fromUserDTO(UserDTO userDTO) {
+		return new User(userDTO.getId(), userDTO.getUsername(), userDTO.getPassword(), userDTO.getBookList());
 	}
 
 	@Override

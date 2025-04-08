@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import ru.vasilev.model.Author;
+import ru.vasilev.dto.AuthorDTO;
 import ru.vasilev.service.AuthorService;
 
 @RestController
@@ -28,21 +28,21 @@ public class AuthorController {
 	
 	@PostMapping
 	@Operation(summary = "Создать нового автора", description = "Создаёт нового автора с переданными данными")
-	public Author createAuthor(
+	public AuthorDTO createAuthor(
 			@Parameter(description = "Объект автора", required = true)
-			@RequestBody Author author) {
+			@RequestBody AuthorDTO author) {
 		return authorService.save(author);
 	}
 	
 	@GetMapping
 	@Operation(summary = "Получить всех авторов", description = "Возвращает список всех авторов")
-	public List<Author> getAll(){
+	public List<AuthorDTO> getAll(){
 		return authorService.findAll();
 	}
 	
 	@GetMapping("/{id}")
 	@Operation(summary = "Получить автора по ID", description = "Возвращает данные автора по заданному идентификатору")
-	public Author getById(
+	public AuthorDTO getById(
 			@Parameter(description = "Идентификатор автора", required = true)
 			@PathVariable Long id) {
 		return authorService.findById(id);
@@ -50,7 +50,7 @@ public class AuthorController {
 	
 	@GetMapping("/author")
 	@Operation(summary = "Получить автора по имени", description = "Возвращает данные автора по заданному имени")
-	public Author getByName(
+	public AuthorDTO getByName(
 			@Parameter(description = "Параметр name - имя автора", required = true)
 			@RequestParam String name) {
 		return authorService.findByName(name);
