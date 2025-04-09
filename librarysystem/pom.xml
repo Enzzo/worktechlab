@@ -100,9 +100,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<profiles>
-		<profile>
 			<build>
 				<plugins>
 					<plugin>
@@ -174,6 +171,4 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
-	</profiles>
 </project>
