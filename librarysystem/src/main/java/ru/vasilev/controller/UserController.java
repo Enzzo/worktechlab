@@ -12,35 +12,43 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import ru.vasilev.dao.UserDAO;
-import ru.vasilev.entity.User;
+import lombok.extern.slf4j.Slf4j;
+import ru.vasilev.dto.UserDTO;
+import ru.vasilev.service.UserService;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/users")
-@Tag(name = "Users", description = "Операции с пользователями")
+@Tag(name = "Users", description = "Операции с пользователями, доступные толко администратору")
 public class UserController {
 
-	private final UserDAO userDAO;
+	private final UserService userService;
 
-	public UserController(UserDAO userDAO) {
-		this.userDAO = userDAO;
+	public UserController(UserService userService) {
+		this.userService = userService;
 	}
 
 	@GetMapping
 	@Operation(summary = "Получить всех пользователей", description = "Возвращает список всех пользователей")
-	public List<User> getAllUsers() {
-		return userDAO.findAll();
+	public List<UserDTO> getAllUsers() {
+		log.info("Получен GET-запрос на /api/v1/users");
+		log.debug("Передача запроса на уровень сервиса");
+		return userService.findAll();
 	}
 
 	@PostMapping
 	@Operation(summary = "Создать пользователя", description = "Создаёт нового пользователя")
-	public User createUser(@Parameter(description = "Объект пользователя", required = true) @RequestBody User user) {
-		return userDAO.save(user);
+	public UserDTO createUser(@Parameter(description = "Объект пользователя", required = true) @RequestBody UserDTO user) {
+		log.info("Получен POST-запрос на /api/v1/users");
+		log.debug("Передача запроса на уровень сервиса");
+		return userService.save(user);
 	}
 
 	@GetMapping("/{id}")
 	@Operation(summary = "Получить пользователя по ID", description = "Возвращает данные пользователя по идентификатору")
-    public User getUser(@Parameter(description = "Идентификатор пользователя", required = true) @PathVariable Long id) {
-        return userDAO.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public UserDTO getUser(@Parameter(description = "Идентификатор пользователя", required = true) @PathVariable Long id) {
+		log.info("Получен GET-запрос на /api/v1/users/{}", id);
+		log.debug("Передача запроса на уровень сервиса");
+		return userService.findById(id);
     }
 }

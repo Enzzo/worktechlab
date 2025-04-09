@@ -13,46 +13,51 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import ru.vasilev.dao.AuthorDAO;
-import ru.vasilev.dao.BookDAO;
-import ru.vasilev.entity.Author;
-import ru.vasilev.entity.Book;
+import lombok.extern.slf4j.Slf4j;
+import ru.vasilev.dto.BookDTO;
+import ru.vasilev.service.AuthorService;
+import ru.vasilev.service.BookService;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/books")
 @Tag(name = "Books", description = "Операции с книгами")
 public class BookController {
-	private final BookDAO bookDAO;
-	private final AuthorDAO authorDAO;
+	private final BookService bookService;
+	private final AuthorService authorService;
 
 	@Autowired
-	public BookController(BookDAO bookDAO, AuthorDAO authorDAO) {
-		this.bookDAO = bookDAO;
-		this.authorDAO = authorDAO;
+	public BookController(BookService bookService, AuthorService authorService) {
+		this.bookService = bookService;
+		this.authorService = authorService;
 	}
-	
+
 	@GetMapping
 	@Operation(summary = "Получить все книги", description = "Возвращает список всех книг")
-    public List<Book> getAllBooks() {
-        return bookDAO.findAll();
+	public List<BookDTO> getAllBooks() {
+
+		log.info("Получен GET-запрос на /api/v1/books");
+		log.debug("Передача запроса на уровень сервиса");
+		return bookService.findAll();
 	}
 
 	@PostMapping
 	@Operation(summary = "Создать книгу", description = "Создаёт книгу для указанного автора")
-    public Book createBook(
-    		@Parameter(description = "Название книги", required = true) @RequestParam String title,
-            @Parameter(description = "ID автора", required = true) @RequestParam Long authorId) {
-        Author author = authorDAO.findById(authorId)
-            .orElseThrow(() -> new RuntimeException("Author not found"));
-        Book book = new Book();
-        book.setTitle(title);
-        book.setAuthor(author);
-        return bookDAO.save(book);
-    }
-    
-    @GetMapping("/{id}")
-    @Operation(summary = "Получить книгу по ID", description = "Возвращает данные книги по идентификатору")
-    public Book getBook( @Parameter(description = "Идентификатор книги", required = true) @PathVariable Long id) {
-        return bookDAO.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
-    }
+	public BookDTO createBook(
+			@Parameter(description = "Название книги", required = true) @RequestParam String title,
+			@Parameter(description = "ID автора", required = true) @RequestParam Long authorId) {
+
+		log.info("Получен POST-запрос на /api/v1/books с параметрами");
+		log.debug("Передача запроса на уровень сервиса");
+		return bookService.save(title, authorId);
+	}
+
+	@GetMapping("/{id}")
+	@Operation(summary = "Получить книгу по ID", description = "Возвращает данные книги по идентификатору")
+	public BookDTO getBook(@Parameter(description = "Идентификатор книги", required = true) @PathVariable Long id) {
+
+		log.info("Получен GET-запрос на /api/v1/books/{}", id);
+		log.debug("Передача запроса на уровень сервиса");
+		return bookService.findById(id);
+	}
 }
