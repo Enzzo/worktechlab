@@ -103,13 +103,6 @@
 
 	<profiles>
 		<profile>
-			<id>prod</id>
-			<properties>
-				<spring.profiles.active>prod</spring.profiles.active>
-				<!-- отключаем запуск тестов -->
-				<skipTests>true</skipTests>
-			</properties>
-
 			<build>
 				<plugins>
 					<plugin>
