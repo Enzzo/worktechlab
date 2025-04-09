@@ -146,6 +146,9 @@
 							<layers>
 								<enabled>true</enabled>
 							</layers>
+							<imageName>
+								${docker.image.prefix}/${project.artifactId}:${project.version}
+							</imageName>
 							<excludes>
 								<exclude>
 									<groupId>org.projectlombok</groupId>
@@ -163,8 +166,7 @@
 								${docker.image.prefix}/${project.artifactId}</repository>
 							<tag>${project.version}</tag>
 							<buildArgs>
-								<JAR_FILE>
-									target/${project.build.finalName}.jar</JAR_FILE>
+								<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
 							</buildArgs>
 						</configuration>
 						<executions>

@@ -40,7 +40,10 @@ public class BookService {
 				.map(book -> {
 					return BookDTO.fromBook(book);
 				})
-				.orElseThrow(() -> new NoSuchElementException("Book not found with id: "+ id));
+				.orElseThrow(() ->{
+					log.error("Ошибка при выполнении операции findById({})", id);
+					return new NoSuchElementException("Book not found with id: "+ id);
+				});
 	}
 
 	public List<BookDTO> findAll(){
@@ -49,6 +52,7 @@ public class BookService {
 		for(Book book : bookDAO.findAll()) {
 			bookList.add(BookDTO.fromBook(book));
 		}
+		log.debug("операция выполнена успешно");
 		return bookList;
 	}
 	

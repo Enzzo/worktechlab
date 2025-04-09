@@ -27,6 +27,7 @@ public class UserService {
 	public UserDTO save(UserDTO userDTO) {
 		log.info("Начало выполнения операции save в сервисном слое.");
 		User user = userDAO.save(User.fromUserDTO(userDTO));
+		log.debug("Пользователь {} успешно добавлен в базу", user.getUsername());
 		return UserDTO.fromUser(user);
 	}
 	
@@ -36,7 +37,10 @@ public class UserService {
 				.map(user -> {
 					return UserDTO.fromUser(user);
 				})
-				.orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
+				.orElseThrow(() -> {
+					log.error("Ошибка при выполнении операции findById({})", id);
+					return new NoSuchElementException("User not found with id: " + id);
+				});
 	}
 	
 	public UserDTO findByUsername(String username) {
@@ -45,7 +49,10 @@ public class UserService {
 				.map(user -> {
 					return UserDTO.fromUser(user);
 				})
-				.orElseThrow(() -> new NoSuchElementException("User not found with name: " + username));
+				.orElseThrow(() -> {
+					log.error("Ошибка при выполнении операции findByUsername({})", username);
+					return new NoSuchElementException("User not found with name: " + username);
+				});
 	}
 	
 	public List<UserDTO> findAll(){

@@ -12,11 +12,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ActiveProfiles;
 
 import ru.vasilev.dao.AuthorDAO;
 import ru.vasilev.dto.AuthorDTO;
 import ru.vasilev.entity.Author;
 
+@ActiveProfiles("dev")
 class AuthorServiceTest {
 
     @Mock
@@ -30,28 +32,28 @@ class AuthorServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-//    @Test
-//    void save_ShouldReturnSavedAuthor() {
-//        Author author = new Author("Test Author", null);
-//        when(authorDAO.save(author)).thenReturn(author);
-//
-//        Author savedAuthor = Author.fromAuthorDTO(authorService.save(AuthorDTO.fromAuthor(author)));
-//        assertEquals("Test Author", savedAuthor.getName());
-//    }
-//
-//    @Test
-//    void findById_ShouldReturnAuthor() {
-//        Author author = new Author("Test Author", null);
-//        when(authorDAO.findById(1L)).thenReturn(Optional.of(author));
-//
-//        Author foundAuthor = Author.fromAuthorDTO(authorService.findById(1L));
-//        assertEquals("Test Author", foundAuthor.getName());
-//    }
-//
-//    @Test
-//    void findById_ShouldThrowException_WhenAuthorNotFound() {
-//        when(authorDAO.findById(1L)).thenReturn(Optional.empty());
-//
-//        assertThrows(NoSuchElementException.class, () -> authorService.findById(1L));
-//    }
+    @Test
+    void save_ShouldReturnSavedAuthor() {
+        Author author = new Author("Test Author", null);
+        when(authorDAO.save(author)).thenReturn(author);
+
+        Author savedAuthor = Author.fromAuthorDTO(authorService.save(AuthorDTO.fromAuthor(author)));
+        assertEquals("Test Author", savedAuthor.getName());
+    }
+
+    @Test
+    void findById_ShouldReturnAuthor() {
+        Author author = new Author("Test Author", null);
+        when(authorDAO.findById(1L)).thenReturn(Optional.of(author));
+
+        Author foundAuthor = Author.fromAuthorDTO(authorService.findById(1L));
+        assertEquals("Test Author", foundAuthor.getName());
+    }
+
+    @Test
+    void findById_ShouldThrowException_WhenAuthorNotFound() {
+        when(authorDAO.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> authorService.findById(1L));
+    }
 }

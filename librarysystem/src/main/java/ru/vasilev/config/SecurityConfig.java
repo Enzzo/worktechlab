@@ -35,15 +35,6 @@ public class SecurityConfig {
 		return http.build();
 	}
 	
-//	@Bean
-//	InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
-//		UserDetails user = User.withUsername("user")
-//				.password(encoder.encode("password"))
-//				.roles("USER")
-//				.build();
-//		return new InMemoryUserDetailsManager(user);
-//	}
-	
 	@Bean
 	UserDetailsService userDetailsService(UserDAO userDAO) {
 		return username -> {			

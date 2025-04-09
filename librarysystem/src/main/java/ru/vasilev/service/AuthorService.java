@@ -41,7 +41,10 @@ public class AuthorService {
 				.map(author -> {
 					return AuthorDTO.fromAuthor(author);
 				})
-				.orElseThrow(() -> new NoSuchElementException("Author not found with id: " + id));
+				.orElseThrow(() -> {
+					log.error("Ошибка при выполнении операции findById({})", id);
+					return new NoSuchElementException("Author not found with id: " + id);
+				});
 	}
 	
 	public AuthorDTO findByName(String name) {
@@ -50,7 +53,10 @@ public class AuthorService {
 				.map(author -> {
 					return AuthorDTO.fromAuthor(author);
 				})
-				.orElseThrow(() -> new NoSuchElementException("Author not found with name: " + name));
+				.orElseThrow(() -> {
+					log.error("Ошибка при выполнении операции findByName({})", name);
+					return new NoSuchElementException("Author not found with name: " + name);
+				});
 	}
 
 	public List<AuthorDTO> findAll(){
