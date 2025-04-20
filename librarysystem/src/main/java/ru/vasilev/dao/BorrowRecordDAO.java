@@ -1,14 +1,11 @@
 package ru.vasilev.dao;
 
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import ru.vasilev.entity.BorrowRecord;
 
-public interface BorrowRecordDAO {
-	Optional<BorrowRecord> findById(Long id);
-	List<BorrowRecord> findAll();
-	BorrowRecord save(BorrowRecord br);
-	void deleteById(Long id);
-	BorrowRecord delete(BorrowRecord br);
+@Repository
+public interface BorrowRecordDAO extends JpaRepository<BorrowRecord, Long>{
+
 }

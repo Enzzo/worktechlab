@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import ru.vasilev.dto.AuthorDTO;
 import ru.vasilev.service.AuthorService;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/authors")
 @Tag(name = "Authors", description = "Операции для работы с авторами")
@@ -31,12 +33,17 @@ public class AuthorController {
 	public AuthorDTO createAuthor(
 			@Parameter(description = "Объект автора", required = true)
 			@RequestBody AuthorDTO author) {
+		
+		log.info("Получен POST-запрос на /api/v1/authors");
+		log.debug("Передача запроса на уровень сервиса");
 		return authorService.save(author);
 	}
 	
 	@GetMapping
 	@Operation(summary = "Получить всех авторов", description = "Возвращает список всех авторов")
 	public List<AuthorDTO> getAll(){
+		log.info("Получен GET-запрос на /api/v1/authors");
+		log.debug("Передача запроса на уровень сервиса");
 		return authorService.findAll();
 	}
 	
@@ -45,6 +52,8 @@ public class AuthorController {
 	public AuthorDTO getById(
 			@Parameter(description = "Идентификатор автора", required = true)
 			@PathVariable Long id) {
+		log.info("Получен GET-запрос на /api/v1/authors/{}", id);
+		log.debug("Передача запроса на уровень сервиса");
 		return authorService.findById(id);
 	}
 	
@@ -53,6 +62,8 @@ public class AuthorController {
 	public AuthorDTO getByName(
 			@Parameter(description = "Параметр name - имя автора", required = true)
 			@RequestParam String name) {
+		log.info("Получен GET-запрос на /api/v1/authors/author с параметром {}", name);
+		log.debug("Передача запроса на уровень сервиса");
 		return authorService.findByName(name);
 	}
 }
