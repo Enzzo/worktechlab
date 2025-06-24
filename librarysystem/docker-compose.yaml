@@ -12,6 +12,7 @@ services:
     - postgres
   postgres:
     image: postgres:latest
+    container_name: postgres
     environment:
       POSTGRES_DB: ${PG_DATABASE}
       POSTGRES_USER: ${PG_USERNAME}
