@@ -17,12 +17,12 @@ import ru.vasilev.service.UserService;
 @RestController
 @RequestMapping("/api/v1/register")
 @Tag(name = "Registration", description = "Регистрация нового пользователя. Доступно всем.")
-public class RegistrationController {
+public class RegistrationRestController {
 	private final UserService userService;
 	private final PasswordEncoder encoder;
 	
 	@Autowired
-	public RegistrationController(UserService userService, PasswordEncoder encoder) {
+	public RegistrationRestController(UserService userService, PasswordEncoder encoder) {
 		this.userService = userService;
 		this.encoder = encoder;
 	}	

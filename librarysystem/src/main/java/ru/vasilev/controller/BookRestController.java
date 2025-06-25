@@ -22,12 +22,12 @@ import ru.vasilev.service.BookService;
 @RestController
 @RequestMapping("/api/v1/books")
 @Tag(name = "Books", description = "Операции с книгами")
-public class BookController {
+public class BookRestController {
 	private final BookService bookService;
 	private final AuthorService authorService;
 
 	@Autowired
-	public BookController(BookService bookService, AuthorService authorService) {
+	public BookRestController(BookService bookService, AuthorService authorService) {
 		this.bookService = bookService;
 		this.authorService = authorService;
 	}

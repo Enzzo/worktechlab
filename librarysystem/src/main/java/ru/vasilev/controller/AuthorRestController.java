@@ -21,10 +21,10 @@ import ru.vasilev.service.AuthorService;
 @RestController
 @RequestMapping("/api/v1/authors")
 @Tag(name = "Authors", description = "Операции для работы с авторами")
-public class AuthorController {
+public class AuthorRestController {
 	private final AuthorService authorService;
 
-	public AuthorController(AuthorService authorService) {
+	public AuthorRestController(AuthorService authorService) {
 		this.authorService = authorService;
 	}
 	

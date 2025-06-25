@@ -25,13 +25,13 @@ import ru.vasilev.service.UserService;
 @RestController
 @RequestMapping("/api/borrow")
 @Tag(name = "BorrowRecords", description = "Операции по выдаче и возврату книг")
-public class BorrowRecordController {
+public class BorrowRecordRestController {
 
 	private final BorrowRecordService borrowRecordService;
 	private final UserService userService;
 	private final BookService bookService;
 
-	public BorrowRecordController(BorrowRecordService borrowRecordService, UserService userService,
+	public BorrowRecordRestController(BorrowRecordService borrowRecordService, UserService userService,
 			BookService bookService) {
 		this.borrowRecordService = borrowRecordService;
 		this.userService = userService;

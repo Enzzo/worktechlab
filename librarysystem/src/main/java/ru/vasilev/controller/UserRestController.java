@@ -20,11 +20,11 @@ import ru.vasilev.service.UserService;
 @RestController
 @RequestMapping("/api/v1/users")
 @Tag(name = "Users", description = "Операции с пользователями, доступные толко администратору")
-public class UserController {
+public class UserRestController {
 
 	private final UserService userService;
 
-	public UserController(UserService userService) {
+	public UserRestController(UserService userService) {
 		this.userService = userService;
 	}
 

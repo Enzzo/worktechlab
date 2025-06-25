@@ -25,13 +25,14 @@ public class SecurityConfig {
 	SecurityFilterChain security(HttpSecurity http) throws Exception{
 		http
 			.csrf(csrf -> csrf
-					.disable())
-			.authorizeHttpRequests(request -> request
-					.requestMatchers("/swagger-ui/**", "/h2-console/**", "/api/v1/register", "/login").permitAll()
-					.requestMatchers("/api/v1/users/**").hasRole("ADMIN")
-					.anyRequest().authenticated())
-			.httpBasic(Customizer.withDefaults())
-			.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+				    .ignoringRequestMatchers("/", "/swagger-ui/**", "/api/v1/register", "/login")
+					.disable());
+//			.authorizeHttpRequests(request -> request
+//					.requestMatchers("/", "/swagger-ui/**", "/h2-console/**", "/api/v1/register", "/login").permitAll()
+//					.requestMatchers("/api/v1/users/**").hasRole("ADMIN")
+//					.anyRequest().authenticated())
+//			.httpBasic(Customizer.withDefaults())
+//			.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 		return http.build();
 	}
 	
