@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import ru.vasilev.dao.UserDAO;
 import ru.vasilev.dto.UserDTO;
 import ru.vasilev.entity.User;
+import ru.vasilev.repository.UserRepository;
 
 @Slf4j
 @Service
 @Transactional
 public class UserService {
-	private final UserDAO userDAO;
+	private final UserRepository userDAO;
 	
 	@Autowired	
-	public UserService(UserDAO userDAO) {
+	public UserService(UserRepository userDAO) {
 		this.userDAO = userDAO;
 	}
 

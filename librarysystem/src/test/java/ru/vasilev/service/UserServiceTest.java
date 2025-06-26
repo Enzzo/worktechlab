@@ -14,15 +14,15 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ActiveProfiles;
 
-import ru.vasilev.dao.UserDAO;
 import ru.vasilev.dto.UserDTO;
 import ru.vasilev.entity.User;
+import ru.vasilev.repository.UserRepository;
 
 @ActiveProfiles("dev")
 class UserServiceTest {
 
     @Mock
-    private UserDAO userDAO;
+    private UserRepository userDAO;
 
     @InjectMocks
     private UserService userService;

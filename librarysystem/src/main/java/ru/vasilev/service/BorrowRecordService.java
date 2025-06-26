@@ -10,22 +10,22 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import ru.vasilev.dao.BorrowRecordDAO;
 import ru.vasilev.dto.BookDTO;
 import ru.vasilev.dto.BorrowRecordDTO;
 import ru.vasilev.dto.UserDTO;
 import ru.vasilev.entity.Book;
 import ru.vasilev.entity.BorrowRecord;
 import ru.vasilev.entity.User;
+import ru.vasilev.repository.BorrowRecordRepository;
 
 @Slf4j
 @Service
 @Transactional
 public class BorrowRecordService {
-	BorrowRecordDAO brDAO;
+	BorrowRecordRepository brDAO;
 	
 	@Autowired
-	public BorrowRecordService(BorrowRecordDAO brDAO) {
+	public BorrowRecordService(BorrowRecordRepository brDAO) {
 		this.brDAO = brDAO;
 	}
 	

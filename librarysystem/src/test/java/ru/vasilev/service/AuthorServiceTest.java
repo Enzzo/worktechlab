@@ -14,15 +14,15 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ActiveProfiles;
 
-import ru.vasilev.dao.AuthorDAO;
 import ru.vasilev.dto.AuthorDTO;
 import ru.vasilev.entity.Author;
+import ru.vasilev.repository.AuthorRepository;
 
 @ActiveProfiles("dev")
 class AuthorServiceTest {
 
     @Mock
-    private AuthorDAO authorDAO;
+    private AuthorRepository authorDAO;
 
     @InjectMocks
     private AuthorService authorService;

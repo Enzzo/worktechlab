@@ -15,9 +15,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import jakarta.transaction.Transactional;
-import ru.vasilev.dao.AuthorDAO;
 import ru.vasilev.entity.Author;
 import ru.vasilev.entity.Book;
+import ru.vasilev.repository.AuthorRepository;
 
 @SpringBootTest
 @ActiveProfiles("dev")
@@ -29,7 +29,7 @@ class BookControllerIntegrationTest {
     private MockMvc mockMvc;
     
     @Autowired
-    private AuthorDAO authorDAO;
+    private AuthorRepository authorDAO;
 
     @Test
     @WithMockUser(username = "user", roles = {"USER"})

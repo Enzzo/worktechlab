@@ -1,4 +1,4 @@
-package ru.vasilev.dao;
+package ru.vasilev.repository;
 
 import java.util.Optional;
 
@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import ru.vasilev.entity.Author;
 
 @Repository
-public interface AuthorDAO extends JpaRepository<Author, Long>{
+public interface AuthorRepository extends JpaRepository<Author, Long>{
 	Optional<Author> findByName(String name);
 }

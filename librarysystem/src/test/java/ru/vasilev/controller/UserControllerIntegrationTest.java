@@ -17,8 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.transaction.Transactional;
-import ru.vasilev.dao.UserDAO;
 import ru.vasilev.entity.User;
+import ru.vasilev.repository.UserRepository;
 
 @SpringBootTest
 @ActiveProfiles("dev")
@@ -30,7 +30,7 @@ class UserControllerIntegrationTest {
 	private MockMvc mockMvc;
 
 	@Autowired
-	private UserDAO userRepo;
+	private UserRepository userRepo;
 
 	@Test
 	@WithMockUser(username = "admin", roles = { "ADMIN" })

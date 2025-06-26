@@ -14,19 +14,19 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ActiveProfiles;
 
-import ru.vasilev.dao.AuthorDAO;
-import ru.vasilev.dao.BookDAO;
 import ru.vasilev.entity.Author;
 import ru.vasilev.entity.Book;
+import ru.vasilev.repository.AuthorRepository;
+import ru.vasilev.repository.BookRepository;
 
 @ActiveProfiles("dev")
 class BookServiceTest {
 
     @Mock
-    private BookDAO bookDAO;
+    private BookRepository bookDAO;
 
     @Mock
-    private AuthorDAO authorDAO;
+    private AuthorRepository authorDAO;
 
     @InjectMocks
     private BookService bookService;

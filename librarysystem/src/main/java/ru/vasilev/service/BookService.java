@@ -9,21 +9,21 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import ru.vasilev.dao.AuthorDAO;
-import ru.vasilev.dao.BookDAO;
 import ru.vasilev.dto.BookDTO;
 import ru.vasilev.entity.Author;
 import ru.vasilev.entity.Book;
+import ru.vasilev.repository.AuthorRepository;
+import ru.vasilev.repository.BookRepository;
 
 @Slf4j
 @Service
 @Transactional
 public class BookService {
-	private final BookDAO bookDAO;
-	private final AuthorDAO authorDAO;
+	private final BookRepository bookDAO;
+	private final AuthorRepository authorDAO;
 
 	@Autowired
-	public BookService(BookDAO bookDAO, AuthorDAO authorDAO) {
+	public BookService(BookRepository bookDAO, AuthorRepository authorDAO) {
 		this.bookDAO = bookDAO;
 		this.authorDAO = authorDAO;
 	}
