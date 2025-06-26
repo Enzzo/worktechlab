@@ -17,23 +17,23 @@ import ru.vasilev.repository.UserRepository;
 @Service
 @Transactional
 public class UserService {
-	private final UserRepository userDAO;
+	private final UserRepository userRepo;
 	
 	@Autowired	
 	public UserService(UserRepository userDAO) {
-		this.userDAO = userDAO;
+		this.userRepo = userDAO;
 	}
 
 	public UserDTO save(UserDTO userDTO) {
 		log.info("Начало выполнения операции save в сервисном слое.");
-		User user = userDAO.save(User.fromUserDTO(userDTO));
+		User user = userRepo.save(User.fromUserDTO(userDTO));
 		log.debug("Пользователь {} успешно добавлен в базу", user.getUsername());
 		return UserDTO.fromUser(user);
 	}
 	
 	public UserDTO findById(Long id) {
 		log.info("Начало выполнения операции findById в сервисном слое.");
-		return userDAO.findById(id)
+		return userRepo.findById(id)
 				.map(user -> {
 					return UserDTO.fromUser(user);
 				})
@@ -45,7 +45,7 @@ public class UserService {
 	
 	public UserDTO findByUsername(String username) {
 		log.info("Начало выполнения операции findByUsername в сервисном слое.");
-		return userDAO.findByUsername(username)
+		return userRepo.findByUsername(username)
 				.map(user -> {
 					return UserDTO.fromUser(user);
 				})
@@ -58,7 +58,7 @@ public class UserService {
 	public List<UserDTO> findAll(){
 		log.info("Начало выполнения операции findAll в сервисном слое.");
 		List<UserDTO> usersList = new ArrayList<>();
-		for(User user : userDAO.findAll()) {
+		for(User user : userRepo.findAll()) {
 			usersList.add(UserDTO.fromUser(user));
 		}
 		return usersList;
@@ -66,6 +66,6 @@ public class UserService {
 	
 	public void delete(Long id) {
 		log.info("Начало выполнения операции delete в сервисном слое.");
-		userDAO.deleteById(id);
+		userRepo.deleteById(id);
 	}
 }

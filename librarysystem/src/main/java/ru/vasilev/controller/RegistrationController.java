@@ -1,8 +1,9 @@
 package ru.vasilev.controller;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,13 +33,21 @@ public class RegistrationController {
 	@GetMapping
 	public String registerPage() {
 		log.info("Переход на страницу регистрации");
-		return "/register";
+		return "register";
 	}
 	
 	@PostMapping
 	public String registerUser(@ModelAttribute UserDTO userToSave) {
 		log.info("Выполняется регистрация пользователя");
-		userService.save(userToSave);
-		return "redirect:/";
+		if(userService.findByUsername(userToSave.getUsername()) == null) {
+			userService.save(userToSave);
+			log.info("Регистрация выполнена успешно");
+			return "redirect:/";
+		}
+		else {
+			log.error("user ${userToSave.getUsername()} already exists");
+			return "register";
+		}
+		
 	}
 }
